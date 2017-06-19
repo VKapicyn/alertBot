@@ -1,0 +1,21 @@
+{
+  "name": "MOEX_bot",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "Da-Strateg",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "google-finance": "^0.1.9",
+    "google-finance2": "0.0.2",
+    "mongodb": "^2.2.14",
+    "mongoose": "^4.9.8",
+    "node-telegram-bot-api": "^0.27.1",
+    "nodemon": "^1.11.0",
+    "request": "^2.81.0"
+  }
+}
