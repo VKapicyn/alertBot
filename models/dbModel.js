@@ -1,4 +1,4 @@
-var url = 'mongodb://localhost:27017/BotDB';
+var url = '';
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 var db = mongoose.connect(url)//конектимсся к БД

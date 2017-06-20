@@ -12,8 +12,8 @@ var User = new mongoose.Schema({
     lastMenu: String,
     portfel: [{
         ticker: String,
-        count: Number,
-        price: Number,
+        count: String,
+        price: String,
         usdrub: Number
     }],
     alerts:[{

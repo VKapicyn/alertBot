@@ -83,20 +83,23 @@ function addTicker(msg, user){
                         }
 
                         //проверка на наличие тикера в портеле
-                        let flag = 0;
+                        let flag = -1;
                         for(let i=0; i<user.portfel.length; i++){
-                            if (msg.text == user.portfel[i].ticker){
+                            if (msg.text.toUpperCase() == user.portfel[i].ticker.toUpperCase()){
                                 flag = i;
                                 break;
                             }
                         }
-                        if (flag == 0){
+
+                        console.log(flag,'---')
+
+                        if (flag == -1){
                             user.portfel.push(obj)
                         } else {
-                            user.portfel.splice(flag, 1, user.portfel[user.portfel.length-1]);
-                            user.portfel.pop();
+                            let buf = user.portfel[flag];
+                            user.portfel.splice(flag, 1);
+                            user.portfel.push(buf);
                         }
-
                         user.buffer = 2;
                         bot.sendMessage(msg.chat.id, 'Введи число акций', addMenu);
                     }
@@ -107,8 +110,8 @@ function addTicker(msg, user){
                     //если тикер новый
                     user.portfel[user.portfel.length-1].count = msg.text;
                 } else {
-                    user.portfel[user.portfel.length-1].count += ';';
-                    user.portfel[user.portfel.length-1].count += msg.text;
+                    //user.portfel[user.portfel.length-1].count += ';';
+                    user.portfel[user.portfel.length-1].count = user.portfel[user.portfel.length-1].count+';'+msg.text;
                 }
                 user.buffer = 3
                 bot.sendMessage(msg.chat.id, 'Введите начальную цену', addMenu);
@@ -117,26 +120,34 @@ function addTicker(msg, user){
                     //если тикер новый
                     user.portfel[user.portfel.length-1].price = msg.text
                 } else {
+                    
                     let count = user.portfel[user.portfel.length-1].count.split(';');
+                    
                     if ((count[0] >= 0 && count[1] >= 0) || (count[0] < 0 && count[1] < 0)){
                         if((count[0] >= 0 && count[1] >= 0)){
-                            let all = count[0]*user.portfel[user.portfel.length-1].price;
-                            all += count[1]*Number(msg.txt);
-                            user.portfel[user.portfel.length-1].price = Math.round(all/(count[0]+count[1])*100)/100;
+                            
+                            let all = Number(count[0])*Number(user.portfel[user.portfel.length-1].price);
+                            all = Number(all) + Number(count[1])*Number(msg.text);
+                            user.portfel[user.portfel.length-1].price = Math.round(all/(Number(count[0])+Number(count[1]))*100)/100;
                         } else if (count[0] < 0 && count[1] < 0){
                             let all = count[0]*user.portfel[user.portfel.length-1].price*(-1);
-                            all += count[1]*Number(msg.txt)*(-1);
-                            user.portfel[user.portfel.length-1].price = Math.round(all/(count[0]+count[1])*(-100))/100;
+                            console.log('__',all)
+                            all += count[1]*Number(msg.text)*(-1);
+                            console.log('____',all)
+                            user.portfel[user.portfel.length-1].price = Math.round(all/(Number(count[0])+Number(count[1]))*(-100))/100;
                         }
-                        user.portfel[user.portfel.length-1].count = count[0] + count[1];
+                        user.portfel[user.portfel.length-1].count = Number(count[0]) + Number(count[1]);
                     }
                     else if(count[0] >= 0 && count[1] < 0) {
                         if ((Number(count[0])+Number(count[1])) > 0)
                             user.portfel[user.portfel.length-1].count = (Number(count[0])+Number(count[1]));
                         else if ((Number(count[0])+Number(count[1])) != 0){
-                            user.portfel[user.portfel.length-1].count = (Number(count[0])*(-1)+Number(count[1])*(-1));
-                            user.portfel[user.portfel.length-1].price = Number(msg.txt);
+                            console.log('меньше')
+                            user.portfel[user.portfel.length-1].count = Number(count[0])+Number(count[1]);
+                            user.portfel[user.portfel.length-1].price = Number(msg.text);
                         } else {
+                            user.portfel.pop();
+
                             //функция удаления
                         }
                     }
@@ -145,32 +156,37 @@ function addTicker(msg, user){
                             user.portfel[user.portfel.length-1].count = (Number(count[0])+Number(count[1]));
                         } else if ((Number(count[0])+Number(count[1])) != 0) {
                             user.portfel[user.portfel.length-1].count = (Number(count[0])*(-1)+Number(count[1])*(-1));
-                            user.portfel[user.portfel.length-1].price = Number(msg.txt);
+                            user.portfel[user.portfel.length-1].price = Number(msg.text);
                         } else {
                             //функция удаления
+                            user.portfel.pop();
                         }
 
                     }
                 }
                 user.buffer = 0;
-                let _flag=0;
-                newsModel.find().then(function(tickers){
-                    
-                    for(let i=0; i<tickers.length; i++){
-                        if(tickers[i].ticker.toLowerCase() == user.portfel[user.portfel.length-1].ticker.toLowerCase()){
-                            ++_flag;
-                            break;
+                if(user.portfel.length!=0){
+                    let _flag=0;
+                    newsModel.find().then(function(tickers){ 
+                        console.log(tickers)  
+                        for(let i=0; i<tickers.length; i++){
+                            if(tickers[i].ticker.toLowerCase() == user.portfel[user.portfel.length-1].ticker.toLowerCase()){
+                                ++_flag;
+                                break;
+                            }
                         }
+                    
+                    console.log(_flag)
+                    if (_flag==0){
+                        let _news = new newsModel();
+                        _news.ticker = user.portfel[user.portfel.length-1].ticker
+                        _news.date = '0'
+                        _news.update = 0
+                        _news.save();
                     }
-                })
-                if (_flag==0){
-                    let _news = new newsModel();
-                    _news.ticker = user.portfel[user.portfel.length-1].ticker
-                    _news.date = '0'
-                    _news.update = 0
-                    _news.save();
+                    bot.sendMessage(msg.chat.id, 'Тикер успешно добавлен в портфель!', backMenu);
+                    })
                 }
-                bot.sendMessage(msg.chat.id, 'Тикер успешно добавлен в портфель!', backMenu);
             }
         } else {
             bot.sendMessage(msg.chat.id, 'К сожалению в портфель нельзя внести более 10 различных бумаг одновременно');

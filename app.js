@@ -1,6 +1,6 @@
 var TelegramBot = require('node-telegram-bot-api');
 var googleFinance = require('google-finance2');
-var token = '365465938:AAHdI3StI5QK09z41U36VK_lYFym84gHcfU';
+var token = '';
 var bot = new TelegramBot(token, {polling: true});
 var dbModel = require('./models/dbModel');
 var mongoose = require("mongoose")
