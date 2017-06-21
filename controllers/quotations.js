@@ -60,7 +60,9 @@ function quotMenu(msg, user){
 function usdrub(msg, user) {
     require('./portfels.js').getCarrency().then(function(res, err){
         if(res!='err') {
-            bot.sendMessage(msg.chat.id, 'Текущая цена: '+res+'\n'+'https://www.google.com/finance/getchart?q='+('USDRUB').toUpperCase()+'&i=300')
+            let tick = Math.floor(Math.random() * 1000000);
+            let period = (user.period==null || user.period==undefined) ? 7 : user.period
+            bot.sendMessage(msg.chat.id, 'Текущая цена: '+res+'\n'+'https://www.google.com/finance/getchart?q='+('USDRUB').toUpperCase()+'&i=300&p='+period+'d&'+tick)
         }
     })
 }
@@ -68,7 +70,9 @@ function usdrub(msg, user) {
 function eurusd(msg, user) {
     require('./portfels.js').getCarrency('EURUSD').then(function(res, err){
         if(res!='err') {
-            bot.sendMessage(msg.chat.id, 'Текущая цена: '+res+'\n'+'https://www.google.com/finance/getchart?q='+('EURUSD').toUpperCase()+'&i=300')
+            let tick = Math.floor(Math.random() * 1000000);
+            let period = (user.period==null || user.period==undefined) ? 7 : user.period
+            bot.sendMessage(msg.chat.id, 'Текущая цена: '+res+'\n'+'https://www.google.com/finance/getchart?q='+('EURUSD').toUpperCase()+'&i=300&p='+period+'d&'+tick)
         }
     })
 }
@@ -76,7 +80,9 @@ function eurusd(msg, user) {
 function eurrub(msg, user) {
     require('./portfels.js').getCarrency('EURRUB').then(function(res, err){
         if(res!='err') {
-            bot.sendMessage(msg.chat.id, 'Текущая цена: '+res+'\n'+'https://www.google.com/finance/getchart?q='+('EURRUB').toUpperCase()+'&i=300')
+            let tick = Math.floor(Math.random() * 1000000);
+            let period = (user.period==null || user.period==undefined) ? 7 : user.period
+            bot.sendMessage(msg.chat.id, 'Текущая цена: '+res+'\n'+'https://www.google.com/finance/getchart?q='+('EURRUB').toUpperCase()+'&i=300&p='+period+'d&'+tick)
         }
     })
 }

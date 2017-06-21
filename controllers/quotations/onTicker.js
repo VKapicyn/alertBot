@@ -76,7 +76,9 @@ function showGraph(msg, user, ticker){
             }
             else
             {
-                bot.sendMessage(msg.chat.id, 'Текущая цена: '+result+'\n'+'https://www.google.com/finance/getchart?q='+(ticker).toUpperCase()+'&i=300')
+                let tick = Math.floor(Math.random() * 1000000);
+                let period = (user.period==null || user.period==undefined) ? 7 : user.period
+                bot.sendMessage(msg.chat.id, 'Текущая цена: '+result+'\n'+'https://www.google.com/finance/getchart?q='+(ticker).toUpperCase()+'&i=300&p='+period+'d&'+tick)
             }
             user.save();
         })

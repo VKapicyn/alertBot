@@ -116,6 +116,7 @@ function addTicker(msg, user){
                 user.buffer = 3
                 bot.sendMessage(msg.chat.id, 'Введите начальную цену', addMenu);
             } else if (user.buffer == 3){
+                msg.text = msg.text.Replace(',','.'); 
                 if (user.portfel[user.portfel.length-1].price == undefined){
                     //если тикер новый
                     user.portfel[user.portfel.length-1].price = msg.text

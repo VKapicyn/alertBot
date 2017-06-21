@@ -4,6 +4,7 @@ var User = new mongoose.Schema({
     userId: Number,
     chatId: Number,
     userName: String,
+    admin: Boolean,
     questionare: {
         accept: String,
         sex: String,
@@ -20,6 +21,7 @@ var User = new mongoose.Schema({
         ticker: String,
         price: String
     }],
+    period: Number,
     buffer: Number,
     ticker_buffer: Number,
     ta_buffer: String,

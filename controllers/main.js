@@ -5,6 +5,8 @@ var portfels = require('../controllers/portfels.js');
 var alerts = require('../controllers/alerts.js'); 
 var quotations = require('../controllers/quotations.js')
 var news = require('../controllers/news.js'); 
+var admin = require('../controllers/admin.js');
+var settings =  require('../controllers/settings.js');
 var userModel = require('../models/userModel.js').userModel;
 var reg0 = {
     reply_markup: JSON.stringify({
@@ -46,22 +48,22 @@ function mainOnStart(msg){
             else if (checkMenu(msg, user, alerts)){
                 require('../controllers/alerts.js').alertsOnStart(msg, user)
             }
-            else if (msg.text == '🔧 Настройки' || user.lastMenu == "Settings"){
+            else if (checkMenu(msg, user, settings)){
                 //TODO
-                bot.sendMessage(msg.chat.id, '⚙ Данный раздел находится в стадии разработки. \n\nМы сразу сообщим, как только он будет готов :)\n');
+                settings.OnStart(msg, user)
+                //bot.sendMessage(msg.chat.id, '⚙ Данный раздел находится в стадии разработки. \n\nМы сразу сообщим, как только он будет готов :)\n');
             }
             else if (msg.text == '☎ О нас'){
                 bot.sendMessage(msg.chat.id, 'Спасибо Вам за использование нашего бота!\n\n'
-                +'📩 @VKapicyn Мы всегда готовы услшать отзывы и предложения\n'
+                +'📩 @VKapicyn Мы всегда готовы услышать отзывы и предложения\n'
                 +'🗂 В данном разделе Вы всегда сможете увидеть ссылки на все наши проекты.\n'
                 +'⚙ Также, мы разрабатываем серию ботов по финансовой сфере и готовы услышать ваши идеи.\n'
                 +'📅 А пока, у нас готовы следующие проеты:\n\n'
                 +'📜 @alor_iis_bot - консультант по счетам ИИС');
             }
-            else if (msg.text == '/admin'){
+            else if (checkMenu(msg, user, admin)){
                 if (user.admin)
-                    //TODO
-                    bot.sendMessage(msg.chat.id, 'Превед медвед')
+                    require('../controllers/admin.js').OnStart(msg, user)
                 else
                     bot.sendMessage(msg.chat.id, 'Нет доступа')
             }

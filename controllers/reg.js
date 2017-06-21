@@ -41,6 +41,8 @@ bot.on('callback_query', function(msg){
                             user.userName = msg.from.first_name;
                             user.questionare.accept = true;
                             user.lastMenu = "General";
+                            user.portfel_alert = 3;
+                            user.news_alert = 1;
                             user.save();
                         }
                         else {
@@ -49,6 +51,8 @@ bot.on('callback_query', function(msg){
                             _user.userName = msg.from.first_name;
                             _user.questionare.accept = true;
                             _user.lastMenu = "General";
+                            _user.portfel_alert = 3;
+                            _user.news_alert = 1;
                             _user.save();
                         }
                         bot.sendMessage(msg.message.chat.id, 'Укажите Ваш пол', reg1)

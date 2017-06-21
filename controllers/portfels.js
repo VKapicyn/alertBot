@@ -184,7 +184,7 @@ function getCarrency(test){
 
                         function getRes(){
                             try{
-                                res(JSON.parse(body["query"]["results"]["rate"]["Ask"]));
+                                res(JSON.parse(body["query"]["results"]["rate"]["Bid"]));
                             }
                             catch(e) {
                                 ++flag;

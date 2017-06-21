@@ -25,7 +25,7 @@ function macroOnStart(msg, user){
                 user.macro_alert = 1;
                 user.save();
             } 
-            else if (mВыключитьsg.text == 'Отключить'){
+            else if (msg.text == 'Отключить'){
                 bot.sendMessage(msg.chat.id, 'Рассылка новостей отключена!', newsMenu)
                 user.macro_alert = 0;
                 user.save();
