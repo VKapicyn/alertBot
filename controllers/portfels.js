@@ -25,7 +25,7 @@ var getTags = function(){
 function portfelOnStart(msg, user){
         if (user != null){
             if (msg.text == 'Обновить'){
-                UpdatePortfelPromise(msg, user)
+                UpdatePortfelPromise(msg, user, 123)
             } 
             else if (checkMenu(msg, user, alerts)){
                 alerts.alertsOnStart(msg, user)
@@ -58,7 +58,7 @@ function openMenu(msg, user){
     user.save();
 }
 
-function UpdatePortfelPromise(msg, user){
+function UpdatePortfelPromise(msg, user, arg){
     var a,b;
     new Promise((resolve, reject) => {
         //a = Date.now();
