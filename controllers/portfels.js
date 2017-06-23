@@ -128,11 +128,12 @@ function UpdatePortfelPromise(msg, user){
         result.text += '-----------------------------\n';
         result.text += 'Обновлено: \n'+new Date().toLocaleString('ru')+'\n';
 
-        if(result=='error'){
-            bot.sendMessage(msg.chat.id, 'У Вас пока нет акций в портфеле');
+        if(result=='error' && (arg!=null && arg!=undefined)){
+            //console.log('')
         } 
-        else 
-        {
+        else if(result=='error' && (arg==null || arg==undefined)){
+            bot.sendMessage(msg.chat.id, 'У Вас пока нет акций в портфеле');
+        } else {
             b = Date.now();
             console.log((a-b)+' ms')
             bot.sendMessage(msg.chat.id, result.text);

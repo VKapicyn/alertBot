@@ -45,9 +45,9 @@ setTimeout(function run() {
 setTimeout(function run(){
     let a = new Date()
     setTimeout(run, 3600000)
-    if(a.getMinutes()<20 && (a.getHours() == 22 || a.getHours() == 10)){
-        setTimeout(600000);
-    } else {
+    //if(a.getMinutes()<20 && (a.getHours() == 22 || a.getHours() == 10)){
+    //    setTimeout(600000);
+    //} else {
         newsModel.newsModel.find().then(function(n_tickers){
             n_tickers.map(n_ticker => {
                 userModel.find({news_alert: 1}).elemMatch('portfel',function(elem){
@@ -57,7 +57,7 @@ setTimeout(function run(){
                 }) 
             })
         })
-    }
+    //}
 }, 10)
 
 //Обновление стопов
