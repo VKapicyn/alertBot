@@ -130,9 +130,10 @@ function UpdatePortfelPromise(msg, user, arg){
 
         if(result=='error' && (arg!=null && arg!=undefined)){
             //console.log('')
+            bot.sendMessage(msg.chat.id, 'У Вас пока нет акций в портфеле');
         } 
         else if(result=='error' && (arg==null || arg==undefined)){
-            bot.sendMessage(msg.chat.id, 'У Вас пока нет акций в портфеле');
+            
         } else {
             b = Date.now();
             console.log((a-b)+' ms')
