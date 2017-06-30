@@ -8,7 +8,7 @@ var userModel = require('../models/userModel.js').userModel;
 var checkMenu = require('../models/dbModel').checkMenu;
 var portfelMenu = {
     reply_markup: JSON.stringify({
-    "keyboard": [["Обновить", alerts.name], [add.name, del.name,], ['Назад']], 
+    "keyboard": [["Обновить", alerts.name], [add.name, del.name, '❓ FAQ'], ['Назад']], 
     "one_time_keyboard": true,
     "force_replay": true,
     "resize_keyboard": true
@@ -26,6 +26,9 @@ function portfelOnStart(msg, user){
         if (user != null){
             if (msg.text == 'Обновить'){
                 UpdatePortfelPromise(msg, user, 123)
+            }
+            else if (msg.text == '❓ FAQ'){
+                bot.sendMessage(msg.chat.id,'⚙ Данный раздел находится в стадии разработки. \n\nМы сразу сообщим, как только он будет готов :)\n');
             } 
             else if (checkMenu(msg, user, alerts)){
                 alerts.alertsOnStart(msg, user)
@@ -34,7 +37,6 @@ function portfelOnStart(msg, user){
                 add.addOnStart(msg, user)
             } 
             else if (checkMenu(msg, user, del)){
-                //bot.sendMessage(msg.chat.id, 'Удалить');
                 del.delOnStart(msg, user);
             } 
             else if (msg.text == 'Назад'){
@@ -53,7 +55,7 @@ function portfelOnStart(msg, user){
 }
 
 function openMenu(msg, user){
-    bot.sendMessage(msg.chat.id, 'Здесь ты можешь следить за состоянием своего портфеля. Что бы узнать его текующую стоимость, нажми "Обновить"', portfelMenu)
+    bot.sendMessage(msg.chat.id, 'Здесь Вы можете следить за состоянием своего портфеля. Что бы узнать его текующую стоимость, нажми "Обновить"', portfelMenu)
     user.lastMenu = "Portfels";
     user.save();
 }

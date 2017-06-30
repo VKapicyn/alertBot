@@ -53,7 +53,7 @@ function addTicker(msg, user){
         if (user.portfel.length <= 10 || user.portfel == null){
             if (user.buffer == 0 || user.buffer == null){
                 user.buffer = 1;
-                bot.sendMessage(msg.chat.id, 'Введи тикер', addMenu);
+                bot.sendMessage(msg.chat.id, 'Введите тикер', addMenu);
             } else if (user.buffer == 1){
                 new Promise((res, rej) => {
                     var url = 'https://www.google.com/finance/info?q='+msg.text;
@@ -71,7 +71,7 @@ function addTicker(msg, user){
                     console.log(result, err)
                     if(!result){
                         user.buffer = 1;
-                        bot.sendMessage(msg.chat.id, 'Не удалось найти тикер, попробуй еще раз...', addMenu)
+                        bot.sendMessage(msg.chat.id, 'Не удалось найти тикер, попробуйте еще раз...', addMenu)
                     }
                     else
                     {
@@ -101,7 +101,7 @@ function addTicker(msg, user){
                             user.portfel.push(buf);
                         }
                         user.buffer = 2;
-                        bot.sendMessage(msg.chat.id, 'Введи число акций', addMenu);
+                        bot.sendMessage(msg.chat.id, 'Введите число акций', addMenu);
                     }
                     user.save();
                 })

@@ -87,7 +87,11 @@ setTimeout(function run(){
                                 ++j;
                                 //тут сравнение по цене
                                 //if (_user.alerts[i].price>100){
-                                if (_user.alerts[i].price<=high || _user.alert[i].price>=low){
+                                    console.log(high, low, _user.alerts[i].price)
+                                    console.log(Number(_user.alerts[i].price)<=Number(high))
+                                    console.log(Number(_user.alerts[i].price)>=Number(low))
+                                if (Number(_user.alerts[i].price)<=Number(high) && Number(_user.alerts[i].price)>=Number(low)){
+                                    console.log('зашел')
                                     bot.sendMessage(user,'Тикер '+_user.alerts[i].ticker+' достиг цены '+_user.alerts[i].price)
                                     require('./controllers/quotations/onTicker').showGraph({chat:{id:_user.chatId}},_user,_user.alerts[i].ticker)
                                     del_mass.push(i);

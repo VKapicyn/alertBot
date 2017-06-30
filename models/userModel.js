@@ -27,7 +27,8 @@ var User = new mongoose.Schema({
     ta_buffer: String,
     portfel_alert: Number,//0 не оповещать, 1 утром, 2 вечером, 3 утром и вечером
     news_alert: Number,//0 не оповещать, не оповещать
-    macro_alert: Number
+    macro_alert: Number,
+    admin_buf: String
 })
 var userModel = mongoose.model('User', User);
 module.exports.userModel = userModel;

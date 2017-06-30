@@ -18,7 +18,7 @@ var reg0 = {
 }
 var mainMenu = {
     reply_markup: JSON.stringify({
-    "keyboard": [[portfels.name, quotations.name], ['📰 Новости', '⏰ Оповещения'], ['🔧 Настройки', '☎ О нас']], 
+    "keyboard": [[portfels.name, quotations.name], [news.name, alerts.name], [settings.name, '☎ О нас']], 
     "one_time_keyboard": true,
     "force_replay": true,
     "resize_keyboard": true

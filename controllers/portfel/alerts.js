@@ -36,7 +36,7 @@ function alertsOnStart(msg, user){
             require('../../controllers/portfels.js').openMenu(msg, user)
         }
         else {
-            bot.sendMessage(msg.chat.id, 'Выбери, как часто хочешь получать оповещения о состоянии своих портфелей?', alertMenu);
+            bot.sendMessage(msg.chat.id, 'Выберите, как часто хотите получать оповещения о состоянии своего портфеля?', alertMenu);
             user.lastMenu =  "P_alerts";
         }
         user.save();

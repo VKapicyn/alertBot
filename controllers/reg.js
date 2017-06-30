@@ -76,7 +76,7 @@ bot.on('callback_query', function(msg){
             userModel.findOne({userId:msg.from.id}).then(function(_user){
                 _user.questionare.age = mass[1];
                 _user.save();
-                bot.sendMessage(msg.message.chat.id, 'Спасибо за регистраицию! Что бы начать пользоваться ботом введите /start. Удалить свои персональные данные Вы можете в разделе "О программе"')
+                bot.sendMessage(msg.message.chat.id, 'Спасибо за регистрацию! Чтобы начать пользоваться ботом введите /start. В дальнейшем, Вы сможете удалить свои персональные в разделе "Настройки"')
             });
         }
 })

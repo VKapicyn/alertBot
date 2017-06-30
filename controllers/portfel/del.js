@@ -18,7 +18,6 @@ function delOnStart(msg, user){
             delMenu.reply_markup.force_replay = true;
             delMenu.reply_markup.resize_keyboard = true;
             delMenu.reply_markup.keyboard = [];
-            console.log('зашел')
             user.portfel.map(stock => {
                 let local_mass = [stock.ticker]
                 delMenu.reply_markup.keyboard.push(local_mass);

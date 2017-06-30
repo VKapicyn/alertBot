@@ -9,7 +9,7 @@ var Alerts = new mongoose.Schema({
 function getPrice(ticker){
     return new Promise((res, rej) => {
         request({
-            url: 'https://www.google.com/finance/getprices?q='+ticker+'&i=18000&p=30m&f=h,l',
+            url: 'https://www.google.com/finance/getprices?q='+ticker+'&i=900&p=1d&f=h,l',
             json: true
             }, 
             function (error, response, body) {
@@ -20,7 +20,8 @@ function getPrice(ticker){
                         res(false)
                     else
                     {
-                        body = body[7].split(',')
+                        //console.log(body.length)
+                        body = body[body.length-2].split(',')
                         res({high:body[0], low:body[1]})
                     }
                 }

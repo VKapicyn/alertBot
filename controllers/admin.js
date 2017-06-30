@@ -21,10 +21,9 @@ var getTags = function(){
 
 function OnStart(msg, user){
         if(user!=null && user.admin==true){
-            user.lastMenu = 'admin';
-            user.save();
+
             if (msg.text == '/admin'){
-                bot.sendMessage(user.chatId,'Зашел в админку', Menu)
+                adminMenu(msg, user)
             } 
             else if (msg.text == 'Статистика'){
                 userModel.find().then(function(users){
@@ -41,15 +40,23 @@ function OnStart(msg, user){
                     require('../controllers/main.js').mainOnStart(msg)
                 }
                 else
-                    Menu(msg, user)
+                    adminMenu(msg, user)
             }
             else {
-                Menu(msg, user)
+                adminMenu(msg, user)
             }
+
 
         }
 }
 
+function adminMenu(msg, user){
+    bot.sendMessage(user.chatId,'Админка', Menu)
+    user.lastMenu = 'admin';
+    user.save();
+}
+
+module.exports.adminMenu = adminMenu
 module.exports.OnStart = OnStart;
 module.exports.Menu = Menu;
 module.exports.name = name;
