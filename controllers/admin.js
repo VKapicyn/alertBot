@@ -5,7 +5,7 @@ var message = require('./admin/message');
 //var stats = require('./admin/stats').stats;
 var Menu = {
     reply_markup: JSON.stringify({
-    "keyboard": [["Статистика"], [message.name], ['Назад']], 
+    "keyboard": [['Статистика'], [message.name], ['Назад']], 
     "one_time_keyboard": true,
     "force_replay": true,
     "resize_keyboard": true
@@ -32,7 +32,7 @@ function OnStart(msg, user){
             } 
             else if (checkMenu(msg, user, message)){
                 message.OnStart(msg, user)
-            } 
+            }
             else if (msg.text == 'Назад'){
                 if(user.lastMenu == 'admin'){
                     user.lastMenu = 'General'
