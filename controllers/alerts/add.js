@@ -25,6 +25,9 @@ function OnStart(msg, user){
             user.lastMenu = "Q_add";
             user.save();
             if (msg.text == 'Назад'){
+                if(user.ta_buffer == 2){
+                    user.alerts[user.alerts.length-1].price = 0;
+                }
                 user.ta_buffer = '0';
                 user.save();
                 require('../../controllers/alerts.js').alertMenu(msg, user)

@@ -106,6 +106,9 @@ function addTicker(msg, user){
                     user.save();
                 })
             } else if (user.buffer == 2){
+                if(!testNumber(msg.text)){
+                    msg.text = 0; 
+                }
                 if (user.portfel[user.portfel.length-1].count == undefined){
                     //если тикер новый
                     user.portfel[user.portfel.length-1].count = msg.text;
@@ -117,6 +120,11 @@ function addTicker(msg, user){
                 bot.sendMessage(msg.chat.id, 'Введите начальную цену', addMenu);
             } else if (user.buffer == 3){
                 msg.text = msg.text.replace(',','.'); 
+
+                if(!testPrice(msg.text)){
+                    msg.text = 0;
+                }
+
                 if (user.portfel[user.portfel.length-1].price == undefined){
                     //если тикер новый
                     user.portfel[user.portfel.length-1].price = msg.text
@@ -195,6 +203,50 @@ function addTicker(msg, user){
         user.lastMenu =  "P_add";
         user.save();
     }
+}
+
+function testPrice(price){
+    let mass = price.split('');
+    let dot = 0;
+    let succ = 0;
+    mass.map( x => {
+        for(let i=0; i<=9; i++){
+            if (x == i){
+                ++succ;
+                break;
+            }
+        }
+        if (x == '.'){
+            ++dot;
+        }
+    })
+    console.log('price',succ, dot)
+    if((dot<=1) && ((succ+dot)) == mass.length)
+        return true
+    else
+        return false;
+}
+
+function testNumber(_number){
+    let mass = _number.split('');
+    let succ = 0;
+    mass.map( x => {
+        for(let i=0; i<=9; i++){
+            if (x == i){
+                ++succ;
+                break;
+            }
+        }
+    })
+    let minus = 0;
+    if((mass.length >= 2) && (mass[0] == '-'))
+        ++minus;
+    console.log('number', succ, minus)
+    if((succ + minus) == mass.length)
+        return true
+    else
+        return false;
+
 }
 
 module.exports.addOnStart = addOnStart;
